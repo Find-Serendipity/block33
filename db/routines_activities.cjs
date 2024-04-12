@@ -15,11 +15,14 @@ const createRoutines_Activities = async (routines_id, activities_id) => {
   try {
     const {
       rows: [newActivity],
-    } = await client.query(`
+    } = await client.query(
+      `
       INSERT INTO routines_activities (routines_id, activities_id)
-      VALUES ('${routines_id}', '${activities_id}')
+      VALUES ($1, $2)
       RETURNING *;
-    `);
+    `,
+      [routines_id, activities_id]
+    );
     return newActivity;
   } catch (err) {
     console.log(err);
