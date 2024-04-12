@@ -57,9 +57,7 @@ app.get("/api/v1/routines/:routineId", async (req, res, next) => {
 
 app.post("/api/v1/routines", async (req, res, next) => {
   try {
-    const { name } = req.body;
-    const { is_public } = req.body;
-    const { goal } = req.body;
+    const { name, is_public, goal } = req.body;
     const createRoutine = await plusOneRoutine(name, is_public, goal);
     res.send(createRoutine);
   } catch (err) {
@@ -109,8 +107,7 @@ app.get("/api/v1/activities/:activityId", async (req, res, next) => {
 
 app.post("/api/v1/activities", async (req, res, next) => {
   try {
-    const { name } = req.body;
-    const { description } = req.body;
+    const { name, description } = req.body;
     const createActivity = await plusOneActivity(name, description);
     res.send(createActivity);
   } catch (err) {
@@ -146,8 +143,7 @@ app.get("/api/v1/routines_activities", async (req, res, next) => {
 
 app.post("/api/v1/routines_activities", async (req, res, next) => {
   try {
-    const { routines_id } = req.body;
-    const { activities_id } = req.body;
+    const { routines_id, activities_id } = req.body;
     const createActivity = await createRoutines_Activities(
       routines_id,
       activities_id

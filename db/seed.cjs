@@ -1,4 +1,4 @@
-const client = require("./client.js");
+const client = require("./client.cjs");
 const { plusOneRoutine } = require("./routines.cjs");
 const { plusOneActivity } = require("./activities.cjs");
 const { createRoutines_Activities } = require("./routines_activities.cjs");
@@ -8,22 +8,10 @@ const createTables = async () => {
     await client.query(`
     CREATE TABLE routines (
         id SERIAL PRIMARY KEY,
-        name VARCHAR(30) NOT NULL,
-        is_public BOOLEAN NOT NULL,
-        goal INTEGER
+        username VARCHAR(30) NOT NULL,
+        password VARCHAR(15) NOT NULL,
       );
       
-      CREATE TABLE activities (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(30) NOT NULL,
-        description TEXT NOT NULL
-      );
-
-      CREATE TABLE routines_activities (
-        id SERIAL PRIMARY KEY,
-        routines_id INTEGER REFERENCES routines(id),
-        activities_id INTEGER REFERENCES activities(id)
-      );
     `);
   } catch (err) {
     console.log(err);
