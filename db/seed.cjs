@@ -3,21 +3,6 @@ const { plusOneRoutine } = require("./routines.cjs");
 const { plusOneActivity } = require("./activities.cjs");
 const { createRoutines_Activities } = require("./routines_activities.cjs");
 
-const createTables = async () => {
-  try {
-    await client.query(`
-    CREATE TABLE routines (
-        id SERIAL PRIMARY KEY,
-        username VARCHAR(30) NOT NULL,
-        password VARCHAR(15) NOT NULL,
-      );
-      
-    `);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 const dropTables = async () => {
   try {
     await client.query(`
@@ -27,6 +12,33 @@ const dropTables = async () => {
     `);
   } catch (error) {
     console.log(error);
+  }
+};
+
+const createTables = async () => {
+  try {
+    await client.query(`
+    CREATE TABLE routines (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(30) NOT NULL,
+      is_public BOOLEAN NOT NULL,
+      goal INTEGER
+    );
+    
+    CREATE TABLE activities (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(30) NOT NULL,
+      description TEXT NOT NULL
+    );
+    
+    CREATE TABLE routines_activities (
+      id SERIAL PRIMARY KEY,
+      routines_id INTEGER REFERENCES routines(id),
+      activities_id INTEGER REFERENCES activities(id)
+    );
+    `);
+  } catch (err) {
+    console.log(err);
   }
 };
 

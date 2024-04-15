@@ -7,12 +7,14 @@ const {
   plusOneRoutine,
   deleteRoutine,
 } = require("./db/routines.cjs");
+
 const {
   getActivities,
   getOneActivity,
   plusOneActivity,
   deleteActivity,
 } = require("./db/activities.cjs");
+
 const {
   getRoutines_Activities,
   createRoutines_Activities,
@@ -22,10 +24,10 @@ const client = require("./db/client.cjs");
 client.connect();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static("dist"));
 
-app.get("/", (req, res, next) => {
+app.get("/", (req, res, __dirname, next) => {
   res.sendFile(`${__dirname}/dist/index.html`);
 });
 
